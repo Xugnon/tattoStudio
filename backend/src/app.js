@@ -6,7 +6,7 @@ app.use(express.json());
 app.get("/", (req, res) => {
   return res.json({
     name: "Lucas",
-    telefone: "(51) 9 92226056",
+    telefone: "(51)992226056",
   });
 });
 
