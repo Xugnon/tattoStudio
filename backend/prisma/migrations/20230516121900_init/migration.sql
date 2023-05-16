@@ -14,10 +14,10 @@ CREATE TABLE "users" (
 -- CreateTable
 CREATE TABLE "services" (
     "id" SERIAL NOT NULL,
-    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    "updatedAt" TIMESTAMP(3) NOT NULL,
     "title" VARCHAR(255) NOT NULL,
     "description" VARCHAR(3000) NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "updatedAt" TIMESTAMP(3) NOT NULL,
     "userId" INTEGER,
 
     CONSTRAINT "services_pkey" PRIMARY KEY ("id")

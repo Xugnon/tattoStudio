@@ -1,10 +1,10 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
 datasource db {
   provider = "postgresql"
   url      = env("DATABASE_URL")
-}
-
-generator client {
-  provider = "prisma-client-js"
 }
 
 model Users {
@@ -12,7 +12,7 @@ model Users {
   name           String
   email          String      @unique
   address        String      @db.VarChar(1000)
-  pessoal_number Int         @unique
+  pessoal_number String      @unique
   createdAt      DateTime    @default(now())
   updatedAt      DateTime    @updatedAt
   Services       Services[]
