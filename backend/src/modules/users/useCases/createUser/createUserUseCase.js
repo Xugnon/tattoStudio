@@ -1,5 +1,5 @@
 const prisma = require("../../../../database/prismaClient");
-const bcrypt = require("bcryptjs");
+const { hash } = require("bcryptjs");
 const AppError = require("../../../../utils/errors/appError");
 
 class CreateUserUseCase {
@@ -11,7 +11,7 @@ class CreateUserUseCase {
     });
 
     if (!user) {
-      const hashPassword = await bcrypt.hash(password, 5);
+      const hashPassword = await hash(password, 5);
 
       const newUser = await prisma.users.create({
         data: {
