@@ -11,7 +11,7 @@ async function ensureAuthUser(req, res, next) {
     const [, token] = authHeader.split(" ");
 
     try {
-      const { sub } = verify(token, process.env.SECRET_STUDENT);
+      const { sub } = verify(token, process.env.SECRET_USER);
       req.id_user = sub;
 
       return next();

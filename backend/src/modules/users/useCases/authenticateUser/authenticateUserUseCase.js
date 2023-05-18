@@ -16,7 +16,7 @@ class AuthenticateUserUseCase {
     if (!user || !passwordMatch) {
       throw new AppError("Email or Password invalid!!", 401);
     } else {
-      const token = sign({ email }, process.env.SECRET_STUDENT, {
+      const token = sign({ email }, process.env.SECRET_USER, {
         subject: user.id,
         expiresIn: "15d",
       });
