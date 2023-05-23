@@ -9,7 +9,15 @@ class ShowUserController {
 
       const user = await showUserUseCase.execute({ id_user });
 
-      return res.status(201).json(user);
+      const userResponse = {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        address: user.address,
+        pessoal_number: user.pessoal_number,
+      };
+
+      return res.status(201).json(userResponse);
     } catch (error) {
       return res.status(error.statusCode).json({ error: error.message });
     }

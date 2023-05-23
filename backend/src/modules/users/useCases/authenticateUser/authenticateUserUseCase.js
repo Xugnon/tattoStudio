@@ -10,10 +10,12 @@ class AuthenticateUserUseCase {
         email,
       },
     });
+    if (!user) {
+      throw new AppError("Email or Password invalid!!", 401);
+    }
 
     const passwordMatch = await compare(password, user.password);
-
-    if (!user || !passwordMatch) {
+    if (!passwordMatch) {
       throw new AppError("Email or Password invalid!!", 401);
     } else {
       const token = sign({ email }, process.env.SECRET_USER, {
