@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "create:admin": "node src/utils/isAdminUser/isAdminUser.js",
+    "create:admin": "node src/utils/seed/isAdminUser.js",
     "dev": "nodemon src/shared/infra/http/server.js"
   },
   "keywords": [],
