@@ -15,11 +15,13 @@ class ShowUserController {
         email: user.email,
         address: user.address,
         pessoal_number: user.pessoal_number,
+        services: user.Services,
+        schedules: user.Schedules,
       };
 
-      return res.status(201).json(userResponse);
+      return res.status(200).json(userResponse);
     } catch (error) {
-      return res.status(error.statusCode).json({ error: error.message });
+      return res.status(error.statusCode || 500).json({ error: error.message });
     }
   }
 }

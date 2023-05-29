@@ -3,9 +3,13 @@ const AppError = require("../../../../utils/errors/appError");
 
 class ShowUserUseCase {
   async execute({ id_user }) {
-    const user = await prisma.users.findFirst({
+    const user = await prisma.users.findUnique({
       where: {
         id: id_user,
+      },
+      include: {
+        Services: true,
+        Schedules: true,
       },
     });
     if (!user) {

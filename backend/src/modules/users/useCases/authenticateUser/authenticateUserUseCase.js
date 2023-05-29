@@ -5,7 +5,7 @@ const { sign } = require("jsonwebtoken");
 
 class AuthenticateUserUseCase {
   async execute({ email, password }) {
-    const user = await prisma.users.findFirst({
+    const user = await prisma.users.findUnique({
       where: {
         email,
       },
