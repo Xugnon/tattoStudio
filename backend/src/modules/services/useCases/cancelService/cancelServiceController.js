@@ -8,12 +8,12 @@ class CancelServiceController {
 
       const cancelServiceUseCase = new CancelServiceUseCase();
 
-      const service = await cancelServiceUseCase.execute({
+      await cancelServiceUseCase.execute({
         id_service,
         id_user,
       });
 
-      return res.status(201).json(service);
+      return res.status(200).send();
     } catch (error) {
       return res.status(error.statusCode || 500).json({ error: error.message });
     }

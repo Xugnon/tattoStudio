@@ -7,12 +7,16 @@ class CancelServiceUseCase {
       where: {
         id: id_user,
       },
+      include: {
+        Schedules: true,
+      },
     });
     if (!user) {
-      throw new AppError("User not found!!", 404);
+      throw new AppError("User not found!", 404);
     }
 
-    const service = await prisma.services.update({
+    // Desassociar o service do user
+    await prisma.services.update({
       where: {
         id: id_service,
       },
@@ -21,11 +25,26 @@ class CancelServiceUseCase {
       },
     });
 
-    if (!service) {
-      throw new AppError("Service not found!!", 404);
+    // Encontrando o schedule associado com o user
+    const schedule = user.Schedules.find(
+      (schedule) => schedule.userId === id_user
+    );
+    if (!schedule) {
+      throw new AppError("Schedule not found!", 404);
     }
 
-    return service;
+    // Desassociar o user e o service do schedule
+    await prisma.schedules.update({
+      where: {
+        id: schedule.id,
+      },
+      data: {
+        servicesId: null,
+        userId: null,
+      },
+    });
+
+    return;
   }
 }
 
