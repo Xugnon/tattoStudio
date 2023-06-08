@@ -1,25 +1,18 @@
-const prisma = require("../../../../database/prismaClient");
 const AppError = require("../../../../utils/errors/appError");
+const PrismaSchedulesRepository = require("../../repositories/prismaSchedulesRepository");
+const PrismaUsersRepository = require("../../../users/repositories/prismaUsersRepository");
+
+const prismaSchedulesRepository = new PrismaSchedulesRepository();
+const prismaUsersRepository = new PrismaUsersRepository();
 
 class CancelScheduleUseCase {
   async execute({ id_schedule, id_user }) {
-    const user = await prisma.users.findUnique({
-      where: {
-        id: id_user,
-      },
-    });
+    const user = await prismaUsersRepository.findById({ id_user });
     if (!user) {
       throw new AppError("User not found!!", 404);
     }
 
-    await prisma.schedules.update({
-      where: {
-        id: id_schedule,
-      },
-      data: {
-        userId: null,
-      },
-    });
+    await prismaSchedulesRepository.removeUserSchedule({ id_schedule });
 
     return;
   }

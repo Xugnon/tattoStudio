@@ -1,26 +1,22 @@
-const prisma = require("../../../../database/prismaClient");
-const { hash } = require("bcryptjs");
 const AppError = require("../../../../utils/errors/appError");
+const PrismaUsersRepository = require("../../repositories/prismaUsersRepository");
+
+const prismaUsersRepository = new PrismaUsersRepository();
 
 class CreateUserUseCase {
   async execute({ name, email, password, address, pessoal_number }) {
-    const user = await prisma.users.findFirst({
-      where: {
-        OR: [{ email }, { pessoal_number }],
-      },
+    const user = await prismaUsersRepository.findByEmailOrNumber({
+      email,
+      pessoal_number,
     });
 
     if (!user) {
-      const hashPassword = await hash(password, 5);
-
-      const newUser = await prisma.users.create({
-        data: {
-          name,
-          email,
-          password: hashPassword,
-          address,
-          pessoal_number,
-        },
+      const newUser = await prismaUsersRepository.create({
+        name,
+        email,
+        password,
+        address,
+        pessoal_number,
       });
 
       return newUser;

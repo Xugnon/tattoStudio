@@ -1,13 +1,10 @@
-const prisma = require("../../../../database/prismaClient");
-const AppError = require("../../../../utils/errors/appError");
+const PrismaServicesRepository = require("../../repositories/prismaServicesRepository");
+
+const prismaServicesRepository = new PrismaServicesRepository();
 
 class GetAvailableServicesUseCase {
   async execute() {
-    const services = await prisma.services.findMany({
-      where: {
-        userId: null,
-      },
-    });
+    const services = await prismaServicesRepository.findMany();
 
     return services;
   }

@@ -1,17 +1,12 @@
-const prisma = require("../../../../database/prismaClient");
 const AppError = require("../../../../utils/errors/appError");
+const PrismaUsersRepository = require("../../repositories/prismaUsersRepository");
+
+const prismaUsersRepository = new PrismaUsersRepository();
 
 class ShowUserUseCase {
   async execute({ id_user }) {
-    const user = await prisma.users.findUnique({
-      where: {
-        id: id_user,
-      },
-      include: {
-        Services: true,
-        Schedules: true,
-      },
-    });
+    const user = await prismaUsersRepository.findById({ id_user });
+
     if (!user) {
       throw new AppError("User not found!!", 404);
     } else {

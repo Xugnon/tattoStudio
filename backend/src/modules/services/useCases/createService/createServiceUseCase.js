@@ -1,12 +1,12 @@
-const prisma = require("../../../../database/prismaClient");
+const PrismaServicesRepository = require("../../repositories/prismaServicesRepository");
+
+const prismaServicesRepository = new PrismaServicesRepository();
 
 class CreateServiceUseCase {
   async execute({ title, description }) {
-    const service = await prisma.services.create({
-      data: {
-        title,
-        description,
-      },
+    const service = await prismaServicesRepository.create({
+      title,
+      description,
     });
 
     return service;

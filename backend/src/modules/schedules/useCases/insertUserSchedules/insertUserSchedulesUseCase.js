@@ -1,5 +1,7 @@
-const prisma = require("../../../../database/prismaClient");
 const AppError = require("../../../../utils/errors/appError");
+const PrismaSchedulesRepository = require("../../repositories/prismaSchedulesRepository");
+
+const prismaSchedulesRepository = new PrismaSchedulesRepository();
 
 class InsertUserSchedulesUseCase {
   async execute({ id_user, id_schedule }) {

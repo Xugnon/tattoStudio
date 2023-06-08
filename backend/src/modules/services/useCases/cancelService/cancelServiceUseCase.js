@@ -1,29 +1,21 @@
-const prisma = require("../../../../database/prismaClient");
 const AppError = require("../../../../utils/errors/appError");
+const PrismaUsersRepository = require("../../../users/repositories/prismaUsersRepository");
+const PrismaSchedulesRepository = require("../../../schedules/repositories/prismaSchedulesRepository");
+const PrismaServicesRepository = require("../../repositories/prismaServicesRepository");
+
+const prismaUsersRepository = new PrismaUsersRepository();
+const prismaSchedulesRepository = new PrismaSchedulesRepository();
+const prismaServicesRepository = new PrismaServicesRepository();
 
 class CancelServiceUseCase {
   async execute({ id_service, id_user }) {
-    const user = await prisma.users.findUnique({
-      where: {
-        id: id_user,
-      },
-      include: {
-        Schedules: true,
-      },
-    });
+    const user = await prismaUsersRepository.findById({ id_user });
     if (!user) {
       throw new AppError("User not found!", 404);
     }
 
     // Desassociar o service do user
-    await prisma.services.update({
-      where: {
-        id: id_service,
-      },
-      data: {
-        userId: null,
-      },
-    });
+    await prismaServicesRepository.removeUserFromService({ id_service });
 
     // Encontrando o schedule associado com o user
     const schedule = user.Schedules.find(
@@ -34,14 +26,8 @@ class CancelServiceUseCase {
     }
 
     // Desassociar o user e o service do schedule
-    await prisma.schedules.update({
-      where: {
-        id: schedule.id,
-      },
-      data: {
-        servicesId: null,
-        userId: null,
-      },
+    await prismaSchedulesRepository.removeUserServiceFromSchedule({
+      id_schedule: schedule.id,
     });
 
     return;

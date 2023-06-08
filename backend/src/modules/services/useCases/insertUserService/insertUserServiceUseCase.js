@@ -1,36 +1,28 @@
-const prisma = require("../../../../database/prismaClient");
 const AppError = require("../../../../utils/errors/appError");
+const PrismaServicesRepository = require("../../repositories/prismaServicesRepository");
+const PrismaUsersRepository = require("../../../users/repositories/prismaUsersRepository");
+
+const prismaServicesRepository = new PrismaServicesRepository();
+const prismaUsersRepository = new PrismaUsersRepository();
 
 class InsertUserServiceUseCase {
   async execute({ id_user, id_service }) {
-    const user = await prisma.users.findUnique({
-      where: {
-        id: id_user,
-      },
-    });
+    const user = await prismaUsersRepository.findById({ id_user });
     if (!user) {
       throw new AppError("User not found!!", 404);
     }
 
-    const idService = await prisma.services.findUnique({
-      where: {
-        id: id_service,
-      },
-    });
-    if (!idService) {
+    const service = await prismaServicesRepository.findById({ id_service });
+    if (!service) {
       throw new AppError("Service not found!!", 404);
     }
 
-    const service = await prisma.services.update({
-      where: {
-        id: idService.id,
-      },
-      data: {
-        userId: user.id,
-      },
+    const upService = await prismaServicesRepository.insertUser({
+      id_service: service.id,
+      id_user: user.id,
     });
 
-    return service;
+    return upService;
   }
 }
 

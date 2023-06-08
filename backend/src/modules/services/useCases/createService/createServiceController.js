@@ -12,9 +12,9 @@ class CreateServiceController {
         description,
       });
 
-      return res.status(201).json(service);
+      return res.status(200).json(service);
     } catch (error) {
-      return res.status(error.statusCode).json({ error: error.message });
+      return res.status(error.statusCode || 500).json({ error: error.message });
     }
   }
 }

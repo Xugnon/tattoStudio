@@ -1,12 +1,10 @@
-const prisma = require("../../../../database/prismaClient");
+const PrismaServicesRepository = require("../../repositories/prismaServicesRepository");
+
+const prismaServicesRepository = new PrismaServicesRepository();
 
 class DeleteServiceUseCase {
   async execute({ id }) {
-    await prisma.services.delete({
-      where: {
-        id,
-      },
-    });
+    await prismaServicesRepository.deleteById({ id });
 
     return;
   }
