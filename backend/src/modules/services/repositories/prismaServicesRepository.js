@@ -32,6 +32,16 @@ class PrismaServicesRepository {
     return service;
   }
 
+  async findByUserId({ id_user }) {
+    const service = await prisma.services.findFirst({
+      where: {
+        userId: id_user,
+      },
+    });
+
+    return service;
+  }
+
   async insertUser({ id_service, id_user }) {
     const service = await prisma.services.update({
       where: {

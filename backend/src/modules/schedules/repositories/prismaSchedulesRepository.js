@@ -1,24 +1,22 @@
 const prisma = require("../../../database/prismaClient");
 
 class PrismaSchedulesRepository {
-  async removeUserServiceFromSchedule({ id_schedule }) {
-    await prisma.schedules.update({
-      where: {
-        id: id_schedule,
-      },
-      data: {
-        servicesId: null,
-        userId: null,
-      },
-    });
-  }
-
   async create({ eventName, startTime, endTime }) {
     const schedule = await prisma.schedules.create({
       data: {
         eventName,
         startTime,
         endTime,
+      },
+    });
+
+    return schedule;
+  }
+
+  async findById({ id_schedule }) {
+    const schedule = await prisma.schedules.findUnique({
+      where: {
+        id: id_schedule,
       },
     });
 
@@ -36,14 +34,30 @@ class PrismaSchedulesRepository {
     return schedules;
   }
 
-  async delete({ id }) {
-    await prisma.schedules.delete({
+  async insertUserAndService({ id_schedule, id_user, id_service }) {
+    const newSchedule = await prisma.schedules.update({
       where: {
-        id,
+        id: id_schedule,
+      },
+      data: {
+        userId: id_user,
+        servicesId: id_service,
       },
     });
 
-    return;
+    return newSchedule;
+  }
+
+  async removeUserServiceFromSchedule({ id_schedule }) {
+    await prisma.schedules.update({
+      where: {
+        id: id_schedule,
+      },
+      data: {
+        servicesId: null,
+        userId: null,
+      },
+    });
   }
 
   async removeUserSchedule({ id_schedule }) {
@@ -53,6 +67,16 @@ class PrismaSchedulesRepository {
       },
       data: {
         userId: null,
+      },
+    });
+
+    return;
+  }
+
+  async deleteById({ id }) {
+    await prisma.schedules.delete({
+      where: {
+        id,
       },
     });
 

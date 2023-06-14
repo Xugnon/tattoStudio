@@ -4,7 +4,7 @@ const prismaSchedulesRepository = new PrismaSchedulesRepository();
 
 class DeleteScheduleUseCase {
   async execute({ id }) {
-    await prismaSchedulesRepository.delete({ id });
+    await prismaSchedulesRepository.deleteById({ id });
 
     return;
   }
