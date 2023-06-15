@@ -3,8 +3,11 @@ const PrismaSchedulesRepository = require("../../repositories/prismaSchedulesRep
 const prismaSchedulesRepository = new PrismaSchedulesRepository();
 
 class DeleteScheduleUseCase {
+  constructor() {
+    this.schedulesRepository = prismaSchedulesRepository;
+  }
   async execute({ id }) {
-    await prismaSchedulesRepository.deleteById({ id });
+    await this.schedulesRepository.deleteById({ id });
 
     return;
   }

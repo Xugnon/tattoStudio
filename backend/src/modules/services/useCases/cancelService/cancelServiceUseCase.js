@@ -8,14 +8,20 @@ const prismaSchedulesRepository = new PrismaSchedulesRepository();
 const prismaServicesRepository = new PrismaServicesRepository();
 
 class CancelServiceUseCase {
+  constructor() {
+    this.usersRepository = prismaUsersRepository;
+    this.servicesRepository = prismaServicesRepository;
+    this.schedulesRepository = prismaSchedulesRepository;
+  }
+
   async execute({ id_service, id_user }) {
-    const user = await prismaUsersRepository.findById({ id_user });
+    const user = await this.usersRepository.findById({ id_user });
     if (!user) {
       throw new AppError("User not found!", 404);
     }
 
     // Desassociar o service do user
-    await prismaServicesRepository.removeUserFromService({ id_service });
+    await this.servicesRepository.removeUserFromService({ id_service });
 
     // Encontrando o schedule associado com o user
     const schedule = user.Schedules.find(
@@ -26,7 +32,7 @@ class CancelServiceUseCase {
     }
 
     // Desassociar o user e o service do schedule
-    await prismaSchedulesRepository.removeUserServiceFromSchedule({
+    await this.schedulesRepository.removeUserServiceFromSchedule({
       id_schedule: schedule.id,
     });
 

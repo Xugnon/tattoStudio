@@ -6,18 +6,23 @@ const prismaServicesRepository = new PrismaServicesRepository();
 const prismaUsersRepository = new PrismaUsersRepository();
 
 class InsertUserServiceUseCase {
+  constructor() {
+    this.usersRepository = prismaUsersRepository;
+    this.servicesRepository = prismaServicesRepository;
+  }
+
   async execute({ id_user, id_service }) {
-    const user = await prismaUsersRepository.findById({ id_user });
+    const user = await this.usersRepository.findById({ id_user });
     if (!user) {
       throw new AppError("User not found!!", 404);
     }
 
-    const service = await prismaServicesRepository.findById({ id_service });
+    const service = await this.servicesRepository.findById({ id_service });
     if (!service) {
       throw new AppError("Service not found!!", 404);
     }
 
-    const upService = await prismaServicesRepository.insertUser({
+    const upService = await this.servicesRepository.insertUser({
       id_service: service.id,
       id_user: user.id,
     });

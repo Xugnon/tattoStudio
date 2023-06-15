@@ -8,12 +8,18 @@ const prismaUsersRepository = new PrismaUsersRepository();
 const prismaServicesRepository = new PrismaServicesRepository();
 
 class InsertUserSchedulesUseCase {
+  constructor() {
+    this.usersRepository = prismaUsersRepository;
+    this.servicesRepository = prismaServicesRepository;
+    this.schedulesRepository = prismaSchedulesRepository;
+  }
+
   async execute({ id_user, id_schedule }) {
-    const user = await prismaUsersRepository.findById({ id_user });
+    const user = await this.usersRepository.findById({ id_user });
 
-    const schedule = await prismaSchedulesRepository.findById({ id_schedule });
+    const schedule = await this.schedulesRepository.findById({ id_schedule });
 
-    const service = await prismaServicesRepository.findByUserId({ id_user });
+    const service = await this.servicesRepository.findByUserId({ id_user });
 
     if (!user) {
       throw new AppError("User not found!!", 404);
@@ -22,7 +28,7 @@ class InsertUserSchedulesUseCase {
     } else if (!service) {
       throw new AppError("User has not chosen a service", 400);
     } else {
-      const newSchedule = await prismaSchedulesRepository.insertUserAndService({
+      const newSchedule = await this.schedulesRepository.insertUserAndService({
         id_schedule: schedule.id,
         id_user: user.id,
         id_service: service.id,

@@ -3,8 +3,11 @@ const PrismaSchedulesRepository = require("../../repositories/prismaSchedulesRep
 const prismaSchedulesRepository = new PrismaSchedulesRepository();
 
 class CreateScheduleUseCase {
+  constructor() {
+    this.schedulesRepository = prismaSchedulesRepository;
+  }
   async execute({ eventName, startTime, endTime }) {
-    const schedule = await prismaSchedulesRepository.create({
+    const schedule = await this.schedulesRepository.create({
       eventName,
       startTime,
       endTime,

@@ -3,8 +3,12 @@ const PrismaServicesRepository = require("../../repositories/prismaServicesRepos
 const prismaServicesRepository = new PrismaServicesRepository();
 
 class DeleteServiceUseCase {
+  constructor() {
+    this.servicesRepository = prismaServicesRepository;
+  }
+
   async execute({ id }) {
-    await prismaServicesRepository.deleteById({ id });
+    await this.servicesRepository.deleteById({ id });
 
     return;
   }

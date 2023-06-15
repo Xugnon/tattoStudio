@@ -3,8 +3,11 @@ const PrismaSchedulesRepository = require("../../repositories/prismaSchedulesRep
 const prismaSchedulesRepository = new PrismaSchedulesRepository();
 
 class GetAvailableSchedulesUseCase {
+  constructor() {
+    this.schedulesRepository = prismaSchedulesRepository;
+  }
   async execute() {
-    const schedules = await prismaSchedulesRepository.findMany();
+    const schedules = await this.schedulesRepository.findMany();
 
     return schedules;
   }

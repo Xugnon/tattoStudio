@@ -3,8 +3,12 @@ const PrismaServicesRepository = require("../../repositories/prismaServicesRepos
 const prismaServicesRepository = new PrismaServicesRepository();
 
 class CreateServiceUseCase {
+  constructor() {
+    this.servicesRepository = prismaServicesRepository;
+  }
+
   async execute({ title, description }) {
-    const service = await prismaServicesRepository.create({
+    const service = await this.servicesRepository.create({
       title,
       description,
     });

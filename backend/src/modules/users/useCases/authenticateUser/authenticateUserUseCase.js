@@ -6,8 +6,12 @@ const PrismaUsersRepository = require("../../repositories/prismaUsersRepository"
 const prismaUsersRepository = new PrismaUsersRepository();
 
 class AuthenticateUserUseCase {
+  constructor() {
+    this.usersRepository = prismaUsersRepository;
+  }
+
   async execute({ email, password }) {
-    const user = await prismaUsersRepository.findByEmail({ email });
+    const user = await this.usersRepository.findByEmail({ email });
     if (!user) {
       throw new AppError("Email or Password invalid!!", 401);
     }

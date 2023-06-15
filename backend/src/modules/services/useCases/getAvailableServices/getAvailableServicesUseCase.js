@@ -3,8 +3,12 @@ const PrismaServicesRepository = require("../../repositories/prismaServicesRepos
 const prismaServicesRepository = new PrismaServicesRepository();
 
 class GetAvailableServicesUseCase {
+  constructor() {
+    this.servicesRepository = prismaServicesRepository;
+  }
+
   async execute() {
-    const services = await prismaServicesRepository.findMany();
+    const services = await this.servicesRepository.findMany();
 
     return services;
   }

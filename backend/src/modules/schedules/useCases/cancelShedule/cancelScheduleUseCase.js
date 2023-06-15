@@ -6,13 +6,17 @@ const prismaSchedulesRepository = new PrismaSchedulesRepository();
 const prismaUsersRepository = new PrismaUsersRepository();
 
 class CancelScheduleUseCase {
+  constructor() {
+    this.prismaUsersRepository = prismaUsersRepository;
+    this.schedulesRepository = prismaSchedulesRepository;
+  }
   async execute({ id_schedule, id_user }) {
-    const user = await prismaUsersRepository.findById({ id_user });
+    const user = await this.prismaUsersRepository.findById({ id_user });
     if (!user) {
       throw new AppError("User not found!!", 404);
     }
 
-    await prismaSchedulesRepository.removeUserSchedule({ id_schedule });
+    await this.schedulesRepository.removeUserSchedule({ id_schedule });
 
     return;
   }
