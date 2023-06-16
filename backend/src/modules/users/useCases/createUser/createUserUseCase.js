@@ -1,11 +1,9 @@
 const AppError = require("../../../../utils/errors/appError");
-const PrismaUsersRepository = require("../../repositories/prismaUsersRepository");
-
-const prismaUsersRepository = new PrismaUsersRepository();
 
 class CreateUserUseCase {
-  constructor() {
-    this.usersRepository = prismaUsersRepository;
+  // Inicializando o repositório
+  constructor(usersRepository) {
+    this.usersRepository = usersRepository;
   }
 
   async execute({ name, email, password, address, pessoal_number }) {
@@ -15,6 +13,7 @@ class CreateUserUseCase {
     });
 
     if (!user) {
+      // verifica o objeto user, caso não existir, então cria um novo
       const newUser = await this.usersRepository.create({
         name,
         email,
@@ -25,6 +24,7 @@ class CreateUserUseCase {
 
       return newUser;
     } else {
+      // caso existir, retorna um erro
       throw new AppError("Email or Number already in use!!", 409);
     }
   }
