@@ -6,7 +6,7 @@
   "scripts": {
     "create:admin": "node src/utils/seed/isAdminUser.js",
     "dev": "nodemon src/shared/infra/http/server.js",
-    "test": "jest"
+    "test": "jest --setupFiles dotenv/config"
   },
   "keywords": [],
   "author": "Lucas Franco",

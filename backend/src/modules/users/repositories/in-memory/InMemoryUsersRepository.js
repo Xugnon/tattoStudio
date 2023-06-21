@@ -7,7 +7,7 @@ class InMemoryUsersRepository {
   }
 
   async create({ name, email, password, address, pessoal_number }) {
-    const hashPassword = hash(password, 5);
+    const hashPassword = await hash(password, 5);
 
     const newUser = {
       id: v4(),
@@ -28,7 +28,7 @@ class InMemoryUsersRepository {
     return newUser;
   }
 
-  async finByEmailOrNumber({ email, pessoal_number }) {
+  async findByEmailOrNumber({ email, pessoal_number }) {
     const user = this.users.find(
       (user) => user.email === email || user.pessoal_number === pessoal_number
     );
