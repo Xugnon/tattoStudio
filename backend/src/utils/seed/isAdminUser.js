@@ -9,7 +9,7 @@ async function IsAdminUser() {
     const user = await prisma.users.create({
       data: {
         name: "Admin User",
-        email: "adminuser@example.com",
+        email: "admin@example.com",
         password: hashPassword,
         address: "R. Example, B. Test, N°69",
         pessoal_number: "99999999999",
