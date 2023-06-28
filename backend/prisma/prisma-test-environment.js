@@ -1,14 +1,14 @@
-const { exec } = require("child_process");
-const dotenv = require("dotenv");
 const NodeEnvironment = require("jest-environment-node").default;
-const { Client } = require("pg");
-const util = require("util");
 const { v4 } = require("uuid");
-dotenv.config({ path: ".env.testing" });
+const { execSync } = require("child_process");
+const { resolve, join } = require("path");
+const { Client } = require("pg");
 
-const execSync = util.promisify(exec);
+const prismaBinary = join(__dirname, "../node_modules/.bin/prisma");
 
-const prismaBinary = "node ./node_modules/.bin/prisma";
+require("dotenv").config({
+  path: resolve(__dirname, "..", ".env.testing"),
+});
 
 class PrismaTestEnvironment extends NodeEnvironment {
   constructor(config) {
@@ -28,7 +28,7 @@ class PrismaTestEnvironment extends NodeEnvironment {
     process.env.DATABASE_URL = this.connectionString;
     this.global.process.env.DATABASE_URL = this.connectionString;
 
-    await execSync(`${prismaBinary} migrate dev`);
+    execSync(`${prismaBinary} migrate deploy`);
 
     return super.setup();
   }
