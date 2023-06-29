@@ -7,7 +7,7 @@
     "create:admin": "node src/utils/seed/isAdminUser.js",
     "dev": "nodemon src/shared/infra/http/server.js",
     "test": "jest",
-    "test:e2e": "jest --config jest-e2e.config.js"
+    "test:e2e": "jest --runInBand --detectOpenHandles --config jest-e2e.config.js"
   },
   "keywords": [],
   "author": "Lucas Franco",

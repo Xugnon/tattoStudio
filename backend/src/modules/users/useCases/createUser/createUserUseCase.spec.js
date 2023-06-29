@@ -49,7 +49,7 @@ describe("Create user useCase", () => {
     );
   });
 
-  it("should throw an error when email or number already exists", async () => {
+  it("should throw an error when number already exists", async () => {
     const existingUser = {
       name: "Existing User",
       email: "testEmail@example.com",
