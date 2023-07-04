@@ -1,10 +1,6 @@
-const PrismaSchedulesRepository = require("../../repositories/prismaSchedulesRepository");
-
-const prismaSchedulesRepository = new PrismaSchedulesRepository();
-
 class DeleteScheduleUseCase {
-  constructor() {
-    this.schedulesRepository = prismaSchedulesRepository;
+  constructor(schedulesRepository) {
+    this.schedulesRepository = schedulesRepository;
   }
   async execute({ id }) {
     await this.schedulesRepository.deleteById({ id });

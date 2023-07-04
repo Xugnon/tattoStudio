@@ -1,4 +1,7 @@
 const InsertUserSchedulesUseCase = require("./insertUserSchedulesUseCase");
+const PrismaUsersRepository = require("../../../users/repositories/prismaUsersRepository");
+const PrismaServicesRepository = require("../../../services/repositories/prismaServicesRepository");
+const PrismaSchedulesRepository = require("../../repositories/prismaSchedulesRepository");
 
 class InsertUserSchedulesController {
   async handle(req, res) {
@@ -6,7 +9,14 @@ class InsertUserSchedulesController {
       const { id_user } = req;
       const { id: id_schedule } = req.params;
 
-      const insertUserUseCase = new InsertUserSchedulesUseCase();
+      const prismaUsersRepository = new PrismaUsersRepository();
+      const prismaServicesRepository = new PrismaServicesRepository();
+      const prismaSchedulesRepository = new PrismaSchedulesRepository();
+      const insertUserUseCase = new InsertUserSchedulesUseCase(
+        prismaUsersRepository,
+        prismaServicesRepository,
+        prismaSchedulesRepository
+      );
 
       const schedule = await insertUserUseCase.execute({
         id_user,

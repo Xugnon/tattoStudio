@@ -1,17 +1,10 @@
 const AppError = require("../../../../utils/errors/appError");
-const PrismaSchedulesRepository = require("../../repositories/prismaSchedulesRepository");
-const PrismaUsersRepository = require("../../../users/repositories/prismaUsersRepository");
-const PrismaServicesRepository = require("../../../services/repositories/prismaServicesRepository");
-
-const prismaSchedulesRepository = new PrismaSchedulesRepository();
-const prismaUsersRepository = new PrismaUsersRepository();
-const prismaServicesRepository = new PrismaServicesRepository();
 
 class InsertUserSchedulesUseCase {
-  constructor() {
-    this.usersRepository = prismaUsersRepository;
-    this.servicesRepository = prismaServicesRepository;
-    this.schedulesRepository = prismaSchedulesRepository;
+  constructor(usersRepository, servicesRepository, schedulesRepository) {
+    this.usersRepository = usersRepository;
+    this.servicesRepository = servicesRepository;
+    this.schedulesRepository = schedulesRepository;
   }
 
   async execute({ id_user, id_schedule }) {

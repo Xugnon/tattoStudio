@@ -1,11 +1,15 @@
 const DeleteScheduleUseCase = require("./deleteScheduleUseCase");
+const PrismaSchedulesRepository = require("../../repositories/prismaSchedulesRepository");
 
 class DeleteScheduleController {
   async handle(req, res) {
     try {
       const { id } = req.params;
 
-      const deleteScheduleUseCase = new DeleteScheduleUseCase();
+      const prismaSchedulesRepository = new PrismaSchedulesRepository();
+      const deleteScheduleUseCase = new DeleteScheduleUseCase(
+        prismaSchedulesRepository
+      );
 
       await deleteScheduleUseCase.execute({ id });
 

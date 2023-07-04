@@ -1,10 +1,6 @@
-const PrismaSchedulesRepository = require("../../repositories/prismaSchedulesRepository");
-
-const prismaSchedulesRepository = new PrismaSchedulesRepository();
-
 class GetAvailableSchedulesUseCase {
-  constructor() {
-    this.schedulesRepository = prismaSchedulesRepository;
+  constructor(schedulesRepository) {
+    this.schedulesRepository = schedulesRepository;
   }
   async execute() {
     const schedules = await this.schedulesRepository.findMany();

@@ -1,11 +1,15 @@
 const CreateScheduleUseCase = require("./createScheduleUseCase");
+const PrismaSchedulesRepository = require("../../repositories/prismaSchedulesRepository");
 
 class CreateScheduleController {
   async handle(req, res) {
     try {
       const { eventName, startTime, endTime } = req.body;
 
-      const createScheduleUseCase = new CreateScheduleUseCase();
+      const prismaSchedulesRepository = new PrismaSchedulesRepository();
+      const createScheduleUseCase = new CreateScheduleUseCase(
+        prismaSchedulesRepository
+      );
 
       const schedule = await createScheduleUseCase.execute({
         eventName,

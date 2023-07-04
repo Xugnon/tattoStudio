@@ -1,14 +1,9 @@
 const AppError = require("../../../../utils/errors/appError");
-const PrismaSchedulesRepository = require("../../repositories/prismaSchedulesRepository");
-const PrismaUsersRepository = require("../../../users/repositories/prismaUsersRepository");
-
-const prismaSchedulesRepository = new PrismaSchedulesRepository();
-const prismaUsersRepository = new PrismaUsersRepository();
 
 class CancelScheduleUseCase {
-  constructor() {
-    this.prismaUsersRepository = prismaUsersRepository;
-    this.schedulesRepository = prismaSchedulesRepository;
+  constructor(usersRepository, schedulesRepository) {
+    this.usersRepository = usersRepository;
+    this.schedulesRepository = schedulesRepository;
   }
   async execute({ id_schedule, id_user }) {
     const user = await this.prismaUsersRepository.findById({ id_user });

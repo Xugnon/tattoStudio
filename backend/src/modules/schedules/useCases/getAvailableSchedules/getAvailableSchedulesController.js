@@ -1,9 +1,13 @@
 const GetAvailableSchedulesUseCase = require("./getAvailableSchedulesUseCase");
+const PrismaSchedulesRepository = require("../../repositories/prismaSchedulesRepository");
 
 class GetAvailableSchedulesController {
   async handle(req, res) {
     try {
-      const getAvailableSchedulesUseCase = new GetAvailableSchedulesUseCase();
+      const prismaSchedulesRepository = new PrismaSchedulesRepository();
+      const getAvailableSchedulesUseCase = new GetAvailableSchedulesUseCase(
+        prismaSchedulesRepository
+      );
 
       const schedules = await getAvailableSchedulesUseCase.execute();
 
