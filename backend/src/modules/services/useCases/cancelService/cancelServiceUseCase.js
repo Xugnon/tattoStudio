@@ -13,18 +13,21 @@ class CancelServiceUseCase {
       throw new AppError("User not found!", 404);
     }
 
-    // Desassociar o service do user
-    await this.servicesRepository.removeUserFromService({ id_service });
+    const service = await this.servicesRepository.findById({ id_service });
+    if (!service) {
+      throw new AppError("Service not found!", 404);
+    }
+    await this.servicesRepository.removeUserFromService({
+      id_service: service.id,
+    });
 
-    // Encontrando o schedule associado com o user
     const schedule = user.Schedules.find(
       (schedule) => schedule.userId === id_user
     );
     if (!schedule) {
-      throw new AppError("Schedule not found!", 404);
+      return;
     }
 
-    // Desassociar o user e o service do schedule
     await this.schedulesRepository.removeUserServiceFromSchedule({
       id_schedule: schedule.id,
     });
