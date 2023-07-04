@@ -1,11 +1,15 @@
 const CreateServiceUseCase = require("./createServiceUseCase");
+const PrismaServicesRepository = require("../../repositories/prismaServicesRepository");
 
 class CreateServiceController {
   async handle(req, res) {
     try {
       const { title, description } = req.body;
 
-      const createServiceUseCase = new CreateServiceUseCase();
+      const prismaServicesRepository = new PrismaServicesRepository();
+      const createServiceUseCase = new CreateServiceUseCase(
+        prismaServicesRepository
+      );
 
       const service = await createServiceUseCase.execute({
         title,

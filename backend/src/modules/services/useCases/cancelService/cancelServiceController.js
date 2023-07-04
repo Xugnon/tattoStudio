@@ -1,4 +1,7 @@
 const CancelServiceUseCase = require("./cancelServiceUseCase");
+const PrismaUsersRepository = require("../../../users/repositories/prismaUsersRepository");
+const PrismaServicesRepository = require("../../repositories/prismaServicesRepository");
+const PrismaSchedulesRepository = require("../../../schedules/repositories/prismaSchedulesRepository");
 
 class CancelServiceController {
   async handle(req, res) {
@@ -6,7 +9,14 @@ class CancelServiceController {
       const { id_user } = req;
       const { id: id_service } = req.params;
 
-      const cancelServiceUseCase = new CancelServiceUseCase();
+      const prismaUsersRepository = new PrismaUsersRepository();
+      const prismaServicesRepository = new PrismaServicesRepository();
+      const prismaSchedulesRepository = new PrismaSchedulesRepository();
+      const cancelServiceUseCase = new CancelServiceUseCase(
+        prismaUsersRepository,
+        prismaServicesRepository,
+        prismaSchedulesRepository
+      );
 
       await cancelServiceUseCase.execute({
         id_service,

@@ -1,11 +1,15 @@
 const DeleteServiceUseCase = require("./deleteServiceUseCase");
+const PrismaServicesRepository = require("../../repositories/prismaServicesRepository");
 
 class DeleteServiceController {
   async handle(req, res) {
     try {
       const { id } = req.params;
 
-      const deleteServiceUseCase = new DeleteServiceUseCase();
+      const prismaServicesRepository = new PrismaServicesRepository();
+      const deleteServiceUseCase = new DeleteServiceUseCase(
+        prismaServicesRepository
+      );
 
       await deleteServiceUseCase.execute({ id });
 

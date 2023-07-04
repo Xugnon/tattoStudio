@@ -1,9 +1,13 @@
 const GetAvailableServicesUseCase = require("./getAvailableServicesUseCase");
+const PrismaServicesRepository = require("../../repositories/prismaServicesRepository");
 
 class GetAvailableServicesController {
   async handle(req, res) {
     try {
-      const getAvailableServicesUseCase = new GetAvailableServicesUseCase();
+      const prismaServicesRepository = new PrismaServicesRepository();
+      const getAvailableServicesUseCase = new GetAvailableServicesUseCase(
+        prismaServicesRepository
+      );
 
       const services = await getAvailableServicesUseCase.execute();
 

@@ -1,4 +1,6 @@
 const InsertUserServiceUseCase = require("./insertUserServiceUseCase");
+const PrismaUsersRepository = require("../../../users/repositories/prismaUsersRepository");
+const PrismaServicesRepository = require("../../repositories/prismaServicesRepository");
 
 class InsertUserServiceController {
   async handle(req, res) {
@@ -6,7 +8,12 @@ class InsertUserServiceController {
       const { id_user } = req;
       const { id: id_service } = req.params;
 
-      const insertUserServiceUseCase = new InsertUserServiceUseCase();
+      const prismaUsersRepository = new PrismaUsersRepository();
+      const prismaServicesRepository = new PrismaServicesRepository();
+      const insertUserServiceUseCase = new InsertUserServiceUseCase(
+        prismaUsersRepository,
+        prismaServicesRepository
+      );
 
       const service = await insertUserServiceUseCase.execute({
         id_user,

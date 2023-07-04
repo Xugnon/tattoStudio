@@ -1,14 +1,9 @@
 const AppError = require("../../../../utils/errors/appError");
-const PrismaServicesRepository = require("../../repositories/prismaServicesRepository");
-const PrismaUsersRepository = require("../../../users/repositories/prismaUsersRepository");
-
-const prismaServicesRepository = new PrismaServicesRepository();
-const prismaUsersRepository = new PrismaUsersRepository();
 
 class InsertUserServiceUseCase {
-  constructor() {
-    this.usersRepository = prismaUsersRepository;
-    this.servicesRepository = prismaServicesRepository;
+  constructor(usersRepository, servicesRepository) {
+    this.usersRepository = usersRepository;
+    this.servicesRepository = servicesRepository;
   }
 
   async execute({ id_user, id_service }) {

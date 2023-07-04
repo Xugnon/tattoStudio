@@ -1,10 +1,6 @@
-const PrismaServicesRepository = require("../../repositories/prismaServicesRepository");
-
-const prismaServicesRepository = new PrismaServicesRepository();
-
 class DeleteServiceUseCase {
-  constructor() {
-    this.servicesRepository = prismaServicesRepository;
+  constructor(servicesRepository) {
+    this.servicesRepository = servicesRepository;
   }
 
   async execute({ id }) {
