@@ -22,7 +22,7 @@ class AuthenticateUserController {
       return res.status(200).json(result);
     } catch (error) {
       // recebe o erro enviado pelo useCase
-      return res.status(error.statusCode).json({ error: error.message });
+      return res.status(error.statusCode || 500).json({ error: error.message });
     }
   }
 }
