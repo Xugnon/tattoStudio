@@ -44,7 +44,7 @@ class InMemorySchedulesRepository {
       this.schedules[scheduleIndex].servicesId = id_service;
       this.schedules[scheduleIndex].userId = id_user;
 
-      return scheduleIndex;
+      return this.schedules[scheduleIndex];
     }
   }
 
