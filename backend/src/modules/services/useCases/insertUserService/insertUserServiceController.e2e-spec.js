@@ -65,7 +65,7 @@ describe("Insert user service controller", () => {
   });
 
   it("should throw an error if service is not found", async () => {
-    const { body: service } = await request(app)
+    await request(app)
       .post("/services/")
       .send({
         title: "Test Tattoo",

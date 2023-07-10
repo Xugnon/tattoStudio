@@ -1,7 +1,7 @@
 const CancelServiceUseCase = require("./cancelServiceUseCase");
 const InMemoryUsersRepository = require("../../../users/repositories/in-memory/InMemoryUsersRepository");
 const InMemoryServicesRepository = require("../../repositories/in-memory/InMemoryServicesRepository");
-const InMemorySchedulesRepository = require("../../../schedules/repositories/in-memory/InMemorySchedulesRepositoy");
+const InMemorySchedulesRepository = require("../../../schedules/repositories/in-memory/InMemorySchedulesRepository");
 const AppError = require("../../../../utils/errors/appError");
 
 describe("Cancel service useCase", () => {
