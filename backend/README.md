@@ -12,6 +12,7 @@ Feito a instalação dos arquivos necessaríos, vamos a configuração do DATABA
 ![image](https://github.com/Xugnon/tatto_studio/assets/85856491/0fa81b1a-9db6-4552-aceb-63ee6cfc3d08)
 
 3 - Run 'npx prisma migrate dev' to run the migrations
+
 4 - Run 'npx prisma generate' to update the Prisma Client
 
 <hr>
@@ -29,7 +30,7 @@ Você deve ver a seguinte mensagem:
 <hr>
 
 <h2>Project structure</h2>
-Agora a estrutura do projeto:
+A estrutura do projeto:
 
 1. 📦 prisma folder:<br>
 
@@ -38,12 +39,38 @@ Agora a estrutura do projeto:
    - 📄 schema.prisma file: Aqui é o feito os Model's do Bando de Dados;<br>
 
 2. 📦 src folder:<br>
+
    - 📦 database:<br>
      - 📄 prismaClient.js file: Arquivo de inicialização do prismaClient;<br>
    - 📦 modules folder:<br>
      - 📦 schedules folder:<br>
+       - 📦 repositories folder:<br>
+         - 📄 in-memory/InMemorySchedulesRepository.js file: Implementação em memória do repositório de **agendamentos** com diferentes funcionalidades, para utilização em ambiente de testes;<br>
+         - 📄 prismaSchedulesRepository.js file: Implementação do repositório utilizando o Prisma de **agendamentos** com diferentes funcionalidades;<br>
+       - 📦 useCases folder:<br>
+         - 📦 cancelSchedule folder: Arquivos responsáveis pelo cancelamento dos agendamentos, contendo controlador, caso de uso e arquivos de testes;<br>
+         - 📦 createSchedule folder: Arquivos responsáveis pela criação dos agendamentos, contendo controlador, caso de uso e arquivos de testes;<br>
+         - 📦 deleteSchedule folder: Arquivos responsáveis pela remoção dos agendamentos, contendo controlador, caso de uso e arquivos de testes;<br>
+         - getAvailableSchedules foder: Arquivos responsáveis por apresentar ao usuário os agendamentos disponiveis, contendo controlador, caso de uso e arquivos de testes;<br>
+         - 📦 insertUserSchedules folder: Arquivos responsáveis por atribuir um usuário à um agendamento, contendo controlador, caso de uso e arquivos de testes;<br>
      - 📦 services folder:<br>
+       - 📦 repositories folder:<br>
+         - 📄 in-memory/InMemoryServicesRepository.js file: Implementação em memória do repositório de **serviços** com diferentes funcionalidades, para utilização em ambiente de testes;<br>
+         - 📄 prismaServicesRepository.js file: Implementação do repositório utilizando o Prisma de **serviços** com diferentes funcionalidades;<br>
+       - 📦 useCases folder:<br>
+         - 📦 cancelServices folder: Arquivos responsáveis pelo cancelamento dos serviços, contendo controlador, caso de uso e arquivos de testes;<br>
+         - 📦 createServices folder: Arquivos responsáveis pela criação dos serviços, contendo controlador, caso de uso e arquivos de testes;<br>
+         - 📦 deleteServices folder: Arquivos responsáveis pela remoção dos serviços, contendo controlador, caso de uso e arquivos de testes;<br>
+         - getAvailableServices foder: Arquivos responsáveis por apresentar ao usuário os serviços disponiveis, contendo controlador, caso de uso e arquivos de testes;<br>
+         - 📦 insertUserServices folder: Arquivos responsáveis por atribuir um usuário à um serviço, contendo controlador, caso de uso e arquivos de testes;<br>
      - 📦 users folder:<br>
+       - 📦 repositories folder:<br>
+         - 📄 in-memory/InMemoryUsersRepository.js file: Implementação em memória do repositório de **usuários** com diferentes funcionalidades, para utilização em ambiente de testes;<br>
+         - 📄 prismaUsersRepository.js file: Implementação do repositório utilizando o Prisma de **usuários** com diferentes funcionalidades;<br>
+       - 📦 useCases folder:<br>
+         - 📦 authenticateUser folder: Arquivos responsáveis pela autenticação do usuário, contendo controlador, caso de uso e testes;<br>
+         - 📦 createUser folder: Arquivos responsáveis pela criação do usuário, contendo controlador, caso de uso e testes;<br>
+         - 📦 showUser folder: Arquivos responsáveis por mostrar o usuário, contendo controlador, caso de uso e testes;<br>
    - 📦 shared/infra/http:<br>
      - 📦 middlewares:<br>
        - 📄 ensureAdminUser.js file: Middleware que verifica se o usuário é admin;<br>
@@ -61,4 +88,26 @@ Agora a estrutura do projeto:
      - 📦 seed folder:<br>
        - 📄 isAdminUser.js file: Arquivo de criação de usuário admin, usado em determinadas rotas de criação;<br>
      - 📦 tests folder:<br>
-       - 📄 setup-jest-env.js file: Inicialização do módulo 'dotenv' para ser usado no arquivo jest.config.js;<br>
+       - 📄 setup-jest-env.js file: Inicialização do módulo `dotenv` para ser usado no arquivo jest.config.js;<br>
+
+3. 📄 .env.example file: Arquvio de exemplo de como ser o arquivo `.env`;<br>
+4. 📄 .env.testing file: Arquivo que define as variaveis de ambiente do Banco de Dados de teste;<br>
+5. 📄 jest-e2e-config.js: Arquivo de configuração dos teste de **ponta a ponta**;<br>
+6. 📄 jest.config.js: Arquivo de configuração dos testes;<br>
+
+<hr>
+
+<h1>Routes</h1>
+Com toda a estrutura explicada, vamos às rotas. Com um API Client como o Postman ou Insomnia, você pode testar as rotas:
+
+1. User routes:
+
+   ![image](https://github.com/Xugnon/tatto_studio/assets/85856491/3f9b4bcf-fd2a-4723-86c3-1aef5355f403)
+
+   - Create User - POST
+
+     `URL http:localhost:port/users/`
+
+     JSON body example:
+
+     ![image](https://github.com/Xugnon/tatto_studio/assets/85856491/a3432428-d1f3-40b9-ba8a-3f146211cab5)
