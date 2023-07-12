@@ -1,11 +1,12 @@
 -- CreateTable
 CREATE TABLE "users" (
-    "id" SERIAL NOT NULL,
+    "id" TEXT NOT NULL,
     "name" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
     "address" VARCHAR(1000) NOT NULL,
     "pessoal_number" TEXT NOT NULL,
+    "isAdmin" BOOLEAN DEFAULT false,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
 
@@ -14,24 +15,24 @@ CREATE TABLE "users" (
 
 -- CreateTable
 CREATE TABLE "services" (
-    "id" SERIAL NOT NULL,
+    "id" TEXT NOT NULL,
     "title" VARCHAR(255) NOT NULL,
     "description" VARCHAR(3000) NOT NULL,
     "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updatedAt" TIMESTAMP(3) NOT NULL,
-    "userId" INTEGER,
+    "userId" TEXT,
 
     CONSTRAINT "services_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
 CREATE TABLE "schedules" (
-    "id" SERIAL NOT NULL,
+    "id" TEXT NOT NULL,
     "eventName" TEXT NOT NULL,
     "startTime" TIMESTAMP(3) NOT NULL,
     "endTime" TIMESTAMP(3) NOT NULL,
-    "servicesId" INTEGER,
-    "userId" INTEGER,
+    "servicesId" TEXT,
+    "userId" TEXT,
 
     CONSTRAINT "schedules_pkey" PRIMARY KEY ("id")
 );
