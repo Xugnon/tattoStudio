@@ -11,9 +11,13 @@ Feito a instalação dos arquivos necessaríos, vamos a configuração do DATABA
 
 ![image](https://github.com/Xugnon/tatto_studio/assets/85856491/0fa81b1a-9db6-4552-aceb-63ee6cfc3d08)
 
-3 - Run 'npx prisma migrate dev' to run the migrations
+Após configurar as variaveis de ambiente, execute o comando `npx prisma migrate dev` para realizar as migrações no banco de dados. Você deve receber uma mensagem assim:
 
-4 - Run 'npx prisma generate' to update the Prisma Client
+![image](https://github.com/Xugnon/tatto_studio/assets/85856491/c3ecb975-fe33-4ee4-ac3b-836aaf6c972f)
+
+Ao execute as migrações, execute o comando `npx prisma generate` para atualizar o Prisma Client:
+
+![image](https://github.com/Xugnon/tatto_studio/assets/85856491/05b218f8-16db-4202-98c6-1e8b93407276)
 
 <hr>
 
@@ -124,6 +128,10 @@ Com toda a estrutura explicada, vamos às rotas. Com um API Client como o Postma
 
      Rota para autenticação do usuário;<br>
      **Essa rota retorna um JSON Web Token, necessário para a autenticação em outras rotas**
+
+     Response example:
+
+     ![image](https://github.com/Xugnon/tatto_studio/assets/85856491/0fb6a75d-bef0-40a7-b913-41a822d2f364)
 
    - Get User - GET
 
