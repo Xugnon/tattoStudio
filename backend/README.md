@@ -100,14 +100,123 @@ A estrutura do projeto:
 <h1>Routes</h1>
 Com toda a estrutura explicada, vamos às rotas. Com um API Client como o Postman ou Insomnia, você pode testar as rotas:
 
-1. User routes:
+1. Users routes:
 
    ![image](https://github.com/Xugnon/tatto_studio/assets/85856491/3f9b4bcf-fd2a-4723-86c3-1aef5355f403)
 
    - Create User - POST
 
-     `URL http:localhost:port/users/`
+     `URL http://localhost:port/users/`
 
      JSON body example:
 
      ![image](https://github.com/Xugnon/tatto_studio/assets/85856491/a3432428-d1f3-40b9-ba8a-3f146211cab5)
+
+     Rota para criação de usuários;
+
+   - Auth User - POST
+
+     `URL http://localhost:port/users/auth/`
+
+     JSON body example:
+
+     ![image](https://github.com/Xugnon/tatto_studio/assets/85856491/95ad6156-2c9c-473c-b46b-abe1a7db6b48)
+
+     Rota para autenticação do usuário;<br>
+     **Essa rota retorna um JSON Web Token, necessário para a autenticação em outras rotas**
+
+   - Get User - GET
+
+     `URL http://localhost:port/users/`
+
+     Bearer token example:
+
+     ![image](https://github.com/Xugnon/tatto_studio/assets/85856491/4ffba59e-09d6-4f2f-ae2c-885b784a364d)
+
+     Rota para obter informações do usuário, como ID, Nome, Email, seus serviços e agendamentos já atribuidos;
+
+2. Services routes:
+
+   ![image](https://github.com/Xugnon/tatto_studio/assets/85856491/24091811-00fd-475b-9cb3-e09bab7ebae1)
+
+   - Create service - POST
+
+     `URL http://localhost:port/services/`
+
+     JSON body example:
+
+     ![image](https://github.com/Xugnon/tatto_studio/assets/85856491/1bdffa6b-87f4-4ca4-9743-91a7a7d463dc)
+
+     Rota para criação de serviços;<br>
+     **Essa rota necessita de uma autentificação via BEARER TOKEN, de um usuário ADMIN**
+
+   - Get available - GET
+
+     `URL http://localhost:port/services/`
+
+     Rota para obter os serviços disponiveis;<br>
+     **Essa rota necessita de uma autentificação via BEARER TOKEN**
+
+   - Insert user - PUT
+
+     `URL http://localhost:port/services/id_service`
+
+     Rota para atribuir um usuário à um serviço;<br>
+     **Essa rota necessita de uma autentificação via BEARER TOKEN**
+
+   - Cancel - PUT
+
+     `URL http://localhost:port/services/cancel/id_service`
+
+     Rota para desatribuir um serviço de um usuário, em caso de cancelamento;<br>
+     **Essa rota necessita de uma autentificação via BEARER TOKEN**
+
+   - Delete - DELETE
+
+     `URL http://localhost:port/services/id_service`
+
+     Rota para remover um serviço do banco de dados;<br>
+     **Essa rota necessita de uma autentificação via BEARER TOKEN, de um usuário ADMIN**
+
+3. Schedules rotes:
+
+   ![image](https://github.com/Xugnon/tatto_studio/assets/85856491/72692c2d-8e5f-4163-ae6f-e719725dcc45)
+
+   - Create schedule - POST
+
+     `URL http://localhost:port/schedules/`
+
+     JSON body example:
+
+     ![image](https://github.com/Xugnon/tatto_studio/assets/85856491/3d10b2a6-b8d0-4dc8-98dd-0bfe0f7859d3)
+
+     Rota para criação de agendamentos;<br>
+     **Essa rota necessita de uma autentificação via BEARER TOKEN, de um usuário ADMIN**
+
+   - Get available - GET
+
+     `URL http://localhost:port/schedules/`
+
+     Rota para obter os agendamentos disponiveis;<br>
+     **Essa rota necessita de uma autentificação via BEARER TOKEN**
+
+   - Insert user - PUT
+
+     `URL http://localhost:port/schedules/id_schedule`
+
+     Rota para atribuir um usuário à um agendamento;<br>
+     **Essa rota necessita de uma autentificação via BEARER TOKEN**
+
+   - Cancel - PUT
+
+     `URL http://localhost:port/schedules/cancel/id_schedule`
+
+     Rota para desatribuir um agendamento de um usuário, em caso de cancelamento;<br>
+     **Essa rota necessita de uma autentificação via BEARER TOKEN**
+
+   - Delete - DELETE
+
+     `URL http://localhost:port/schedules/id_schedule`
+
+     Rota para remover um agendamento do banco de dados;<br>
+     **Essa rota necessita de uma autentificação via BEARER TOKEN, de um usuário ADMIN**
