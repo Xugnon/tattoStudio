@@ -50,27 +50,27 @@ A estrutura do projeto:
      - 📦 schedules folder:<br>
        - 📦 repositories folder:<br>
          - 📄 in-memory/InMemorySchedulesRepository.js file: Implementação em memória do repositório de **agendamentos** com diferentes funcionalidades, para utilização em ambiente de testes;<br>
-         - 📄 prismaSchedulesRepository.js file: Implementação do repositório utilizando o Prisma de **agendamentos** com diferentes funcionalidades;<br>
+         - 📄 prismaSchedulesRepository.js file: Implementação do repositório, utilizando o Prisma, de **agendamentos** com diferentes funcionalidades;<br>
        - 📦 useCases folder:<br>
          - 📦 cancelSchedule folder: Arquivos responsáveis pelo cancelamento dos agendamentos, contendo controlador, caso de uso e arquivos de testes;<br>
          - 📦 createSchedule folder: Arquivos responsáveis pela criação dos agendamentos, contendo controlador, caso de uso e arquivos de testes;<br>
          - 📦 deleteSchedule folder: Arquivos responsáveis pela remoção dos agendamentos, contendo controlador, caso de uso e arquivos de testes;<br>
-         - getAvailableSchedules foder: Arquivos responsáveis por apresentar ao usuário os agendamentos disponiveis, contendo controlador, caso de uso e arquivos de testes;<br>
+         - 📦 getAvailableSchedules foder: Arquivos responsáveis por apresentar ao usuário os agendamentos disponiveis, contendo controlador, caso de uso e arquivos de testes;<br>
          - 📦 insertUserSchedules folder: Arquivos responsáveis por atribuir um usuário à um agendamento, contendo controlador, caso de uso e arquivos de testes;<br>
      - 📦 services folder:<br>
        - 📦 repositories folder:<br>
          - 📄 in-memory/InMemoryServicesRepository.js file: Implementação em memória do repositório de **serviços** com diferentes funcionalidades, para utilização em ambiente de testes;<br>
-         - 📄 prismaServicesRepository.js file: Implementação do repositório utilizando o Prisma de **serviços** com diferentes funcionalidades;<br>
+         - 📄 prismaServicesRepository.js file: Implementação do repositório, utilizando o Prisma, de **serviços** com diferentes funcionalidades;<br>
        - 📦 useCases folder:<br>
          - 📦 cancelServices folder: Arquivos responsáveis pelo cancelamento dos serviços, contendo controlador, caso de uso e arquivos de testes;<br>
          - 📦 createServices folder: Arquivos responsáveis pela criação dos serviços, contendo controlador, caso de uso e arquivos de testes;<br>
          - 📦 deleteServices folder: Arquivos responsáveis pela remoção dos serviços, contendo controlador, caso de uso e arquivos de testes;<br>
-         - getAvailableServices foder: Arquivos responsáveis por apresentar ao usuário os serviços disponiveis, contendo controlador, caso de uso e arquivos de testes;<br>
+         - 📦 getAvailableServices foder: Arquivos responsáveis por apresentar ao usuário os serviços disponiveis, contendo controlador, caso de uso e arquivos de testes;<br>
          - 📦 insertUserServices folder: Arquivos responsáveis por atribuir um usuário à um serviço, contendo controlador, caso de uso e arquivos de testes;<br>
      - 📦 users folder:<br>
        - 📦 repositories folder:<br>
          - 📄 in-memory/InMemoryUsersRepository.js file: Implementação em memória do repositório de **usuários** com diferentes funcionalidades, para utilização em ambiente de testes;<br>
-         - 📄 prismaUsersRepository.js file: Implementação do repositório utilizando o Prisma de **usuários** com diferentes funcionalidades;<br>
+         - 📄 prismaUsersRepository.js file: Implementação do repositório, utilizando o Prisma, de **usuários** com diferentes funcionalidades;<br>
        - 📦 useCases folder:<br>
          - 📦 authenticateUser folder: Arquivos responsáveis pela autenticação do usuário, contendo controlador, caso de uso e testes;<br>
          - 📦 createUser folder: Arquivos responsáveis pela criação do usuário, contendo controlador, caso de uso e testes;<br>
@@ -80,7 +80,7 @@ A estrutura do projeto:
        - 📄 ensureAdminUser.js file: Middleware que verifica se o usuário é admin;<br>
        - 📄 ensureAuthUser.js file: Middleware que verifica se o token é valido e se pertence a um usuário válido;<br>
      - 📦 routes folder:<br>
-       - 📄 index.js file: Arquivo onde é importado módulos de rotas específicos, configurado essas rotas no objeto 'routes' e exportado<br>
+       - 📄 index.js file: Arquivo onde é importado módulos de rotas específicos, configurado essas rotas no objeto 'routes' e exportado;<br>
        - 📄 schedules.routes.js file: Define as rotas relacionadas aos **agendamentos**, utilizando middlewares para autenticação e autorização do usuário. As funcionalidades das rotas são feitas pelos diferentes controladores;<br>
        - 📄 services.routes.js file: Define as rotas relacionadas aos **serviços**, utilizando middlewares para autenticação e autorização do usuário. As funcionalidades das rotas são feitas pelos diferentes controladores;<br>
        - 📄 users.routes.js file: Define as rotas relacionadas aos **usuários**, utilizando middlewares para autenticação e autorização do usuário. As funcionalidades das rotas são feitas pelos diferentes controladores;<br>
@@ -101,7 +101,7 @@ A estrutura do projeto:
 
 <hr>
 
-<h1>Routes</h1>
+<h2>Routes</h2>
 Com toda a estrutura explicada, vamos às rotas. Com um API Client como o Postman ou Insomnia, você pode testar as rotas:
 
 1. Users routes:
@@ -228,3 +228,24 @@ Com toda a estrutura explicada, vamos às rotas. Com um API Client como o Postma
 
      Rota para remover um agendamento do banco de dados;<br>
      **Essa rota necessita de uma autentificação via BEARER TOKEN, de um usuário ADMIN**
+
+<hr>
+
+<h2>Test's</h2>
+Os teste foram dividos em dois grupo: testes unitários e teste de ponta a ponta. Decidi agrupar os testes junto aos arquivos em que estou testando, me fez mais sentido.
+
+<h3>Unit test's</h3>
+
+Toda a configuração destes testes, estão no arquivo _jest.config.js_, portanto não é necessário configurar nada.<br>
+Para executar os testes, rode o comando `npm run test` (certifique de estar dentro da pasta backend no terminal).<br>
+Você deve ver algo assim:
+
+![image](https://github.com/Xugnon/tatto_studio/assets/85856491/cc233882-baee-4d3f-95b5-79c65713ce3b)
+
+<h3>E2E test's</h3>
+
+A configuração destes teste se encontra dentro do arquvio _jest-e2e.config.js_, que copia tudo que está dentro de _jest.config.js_ e sobrescreve algumas informações. O jest então executa o arquivo _prisma-test-environment.js_, dentro da pasta Prisma e procura pelos arquivos com o final _\*\*.e2e-spec.js_ e então executa-os. A cada arquivo, um schema aleatório é criado dentro do banco de dados, executado os testes e então o schema é deletado. Assim tendo um banco de dados zerado a cada teste.<br>
+Para rodar os testes, execute o comando `npm run test:e2e` (novamente, certifique-se de estar dentro da pasta backend no terminal).<br>
+Você deve ver algo assim:
+
+![image](https://github.com/Xugnon/tatto_studio/assets/85856491/d54663bf-4fd2-40d2-8499-ea1dff18c8ea)

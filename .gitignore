@@ -1,4 +1,4 @@
 .env
-.env.test
+.env.testing
 node_modules
 coverage
